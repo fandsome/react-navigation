@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { PureComponent } from 'react';
-import { Animated, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { Animated, TouchableWithoutFeedback, StyleSheet, Text } from 'react-native';
 import TabBarIcon from './TabBarIcon';
 
 import type {
@@ -153,6 +153,26 @@ export default class TabBarBottom extends PureComponent<
             outputRange: (outputRange: Array<string>),
           });
           const justifyContent = this.props.showIcon ? 'flex-end' : 'center';
+          // add mid action
+          if (route.routeName === 'MidAction') {
+            return (
+              <TouchableWithoutFeedback
+                key={route.key}
+                onPress={() => navigation.dispatch({ type: 'MidAction' })}
+              >
+                <Animated.View
+                  style={[
+                    styles.tab,
+                    { backgroundColor, justifyContent },
+                    tabStyle,
+                  ]}
+                >
+                  {this._renderIcon(scene)}
+                  {this._renderLabel(scene)}
+                </Animated.View>
+              </TouchableWithoutFeedback>
+            )
+          }
           return (
             <TouchableWithoutFeedback
               key={route.key}
